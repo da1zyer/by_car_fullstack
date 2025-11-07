@@ -1,0 +1,54 @@
+/* frontend/src/styles/Header.css */
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    color: #333;
+}
+
+.logo {
+    cursor: pointer;
+}
+
+.auth-nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-link {
+    color: inherit;
+    font-size: 24px;
+    font-family: 'Auth Font';
+    transition: color 0.2s;
+}
+
+.nav-link:hover {
+    color: #e64a66;
+}
+
+.primary-button {
+    background-color: #e64a66; 
+    color: white;
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.primary-button:hover {
+    background-color: #d13a52;
+    color: white;
+}
+
+.user-info {
+    font-size: 1rem;
+    color: #555;
+}
+
+.user-name {
+    font-weight: bold;
+    color: #000;
+}

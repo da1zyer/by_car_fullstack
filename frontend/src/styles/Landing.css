@@ -1,0 +1,99 @@
+/* src/LandingPage.css */
+
+.landing-container {
+    min-height: 900px;
+    width: 100%;
+    background-color: #F1EAE0;
+    padding: 30px 60px;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.landing-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.auth-nav .auth-link {
+    margin-left: 20px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.main-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    margin: 0 auto;
+}
+
+.text-section {
+    max-width: 50%;
+    align-self: flex-start;
+    padding-top: 100px; 
+}
+
+.heading {
+    font-family: 'Your Second Glance Font'; 
+    font-size: 110px;
+    letter-spacing: 2%;
+    margin: 0 0 40px 0;
+    color: #000;
+}
+
+.line {
+    display: block;
+}
+
+.start-button {
+    background-color: #DF374E;
+    color: #FFFFFF;
+    width: 353px;
+    height: 102px;
+    border: none;
+    border-radius: 90px;
+    padding: 15px 35px;
+    font-size: 40px;
+    cursor: pointer;
+    transition: font-size 0.5s;
+}
+
+.start-button:hover {
+    font-size: 43px;
+}
+
+.image-section {
+    left: 1%;
+    margin-top: 90px;
+    position: relative;
+}
+
+.car-image {
+    display: block;
+}
+
+.highlight-overlay {
+    position: absolute;
+    top: 5%;
+    right: 2%;
+    width: 327px;
+    height: 488px;
+    background-color: rgba(210, 0, 0, 0.2);
+    border: 6px solid transparent;
+    border-color: #FFFFFF;
+}
+
+.rust-label {
+    position: absolute;
+    bottom: -33px;
+    color: #000000;
+    font-family: 'Rust Font';
+    font-size: 20px;
+}
