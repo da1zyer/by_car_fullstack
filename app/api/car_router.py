@@ -3,7 +3,7 @@ from fastapi import APIRouter
 router = APIRouter(prefix='/car', tags=['car'])
 
 @router.get('/{id}')
-def test_endpoint():
+def test_endpoint(id: int):
     return {'message': 'test message {}'.format(id)}
 
 @router.get('/')
