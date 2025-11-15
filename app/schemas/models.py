@@ -1,10 +1,10 @@
 from pydantic import BaseModel, EmailStr, StrictStr
 
 class LoginModel(BaseModel):
-    login: StrictStr
+    username: StrictStr
     password: StrictStr
 
 class RegisterModel(BaseModel):
     email: EmailStr
-    login: StrictStr
+    username: StrictStr
     password: StrictStr
