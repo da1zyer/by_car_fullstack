@@ -5,3 +5,11 @@ pydantic[email]
 SQLAlchemy
 psycopg2-binary
 python-dotenv
+python-jose[cryptography]
+passlib[bcrypt]
+python-multipart
+alembic
+argon2_cffi
+selenium
+requests
+python-dotenv

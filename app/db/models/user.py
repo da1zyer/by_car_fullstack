@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String
-from db import Base
+from db.base import Base
+from sqlalchemy.orm import relationship
 
 class User(Base):
     __tablename__ = "users"
@@ -7,4 +8,6 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String, unique=True, index=True)
     email = Column(String, unique=True, index=True)
-    password = Column(String, unique=True, index=True)
+    password_hash = Column(String)
+
+    cars = relationship("Car", back_populates="user")
