@@ -13,4 +13,4 @@ class Car(Base):
 
     user = relationship("User", back_populates="cars")
 
-    images = relationship("Image", back_populates="car")
+    images = relationship("Image", back_populates="car", cascade="all, delete-orphan")

@@ -21,3 +21,21 @@ class UserOut(BaseModel):
 
     class Config:
         orm_mode = True
+
+class CarResponse(BaseModel):
+    msg: str
+    id: int
+    url: str | None = None
+    title: str
+
+class CarsResponse(BaseModel):
+    msg: str
+    car_ids: list[int]
+
+class ImageResponse(BaseModel):
+    id: int
+    url: str | None = None
+
+class ImagesResponse(BaseModel):
+    msg: str
+    images: list[ImageResponse]

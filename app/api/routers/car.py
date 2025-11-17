@@ -1,76 +1,70 @@
-from fastapi import APIRouter, Depends
-from services.parser.main import parse_link
-from services.saver import save_images
+from fastapi import APIRouter, Depends, Query, UploadFile, File
 from core.jwt.auth import get_current_user
-from db.repositories.car import CarRepository
-from db.repositories.image import ImageRepository
+from db.repositories import CarRepository
 from sqlalchemy.orm import Session
 from db.session import get_db
-from db.models.user import User
-from services.car import add_car
+from db.models import User
+from services.car import create_car
+import services.image as image_service
+from schemas.models import CarResponse, CarsResponse, ImagesResponse, ImageResponse
 
 router = APIRouter(prefix='/car', tags=['car'])
 
-@router.post('/add')
-def add_car_from_link(link: str, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
-    car = add_car(user, db, link)
-
+@router.post('', response_model=CarResponse)
+def add_car(link: str | None = Query(None), title: str | None = Query(None), user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    if link:
+        car = create_car(user, db, link)
+    elif title:
+        car = create_car(user, db, title=title)
+    
     return {'msg': 'Машина успешно добавлена',
-            'method': 'link',
             'id': car.id,
             'url': car.url,
             'title': car.title
     }
 
-@router.post('/add_manual')
-def add_car_manual(title: str, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
-    car = add_car(user, db, title=title)
-
-    return {'msg': 'Машина успешно добавлена вручную',
-            'method': 'manual',
-            'id': car.id,
-            'title': car.title
-    }
-
-@router.get('/get_all')
+@router.get('/get_all', response_model=CarsResponse)
 def get_all_cars(user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     cars = CarRepository.get_all(db, user)
     car_ids = [car.id for car in cars]
 
     return {'msg': 'Машины успешно получены',
-            'car_ids': car_ids}
+            'car_ids': car_ids
+    }
 
-@router.get('/get')
-def get(id: int, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+@router.get('/{id}', response_model=CarResponse)
+def get_car(id: int, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     car = CarRepository.get_by_id(db, user, id)
 
-    return {'msg': 'Машины успешно получены',
+    return {'msg': 'Машина успешно получена',
             'id': car.id,
-            'title': car.title}
+            'url': car.url,
+            'title': car.title
+    }
 
+@router.delete('/{id}')
+def delete_car(id: int, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    result = CarRepository.delete_by_id(db, user, id)
 
-@router.get('/get_images')
+    return {'msg': result}
+
+@router.post('/{id}', response_model=ImageResponse)
+def add_image(id: int, image: UploadFile = File(...), user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    car = CarRepository.get_by_id(db, user, id)
+    i = image_service.add_image(db, car, user, image)
+
+    return {'id': i.id}
+
+@router.get('/images/{car_id}', response_model=ImagesResponse)
 def get_images(car_id: int, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
-    car = CarRepository.get_by_id(db, user, car_id)
-    images = ImageRepository.get_all(db=db, car=car)
-    response_images = []
-    for image in images:
-        response_images.append('localhost:8000/images/{}.png'.format(image.id))
+    response_images = image_service.get_images(car_id, user, db)
+
     return {'msg': 'Изображения успешно получены',
-            'images': response_images}
+            'images': response_images
+    }
 
-@router.post('/add_image')
-def add_image(id: int, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
-    pass
-
-@router.delete('/delete_image')
+@router.delete('/images/{id}')
 def delete_image(id: int, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
-    
-    # TODO: удаляется из базы, но не из каталога
-    
-    result = ImageRepository.delete_by_id(db, id)
+    result = image_service.delete_image(db, user, id)
 
-    if result:
-        return {'msg': 'Изображение удалено'}
-    else:
-        return {'msg': 'Не удалось удалить изображение'}
+    return {'msg': result}

@@ -9,6 +9,6 @@ class Image(Base):
     url = Column(String)
     is_analyzed = Column(Boolean)
 
-    car_id = Column(Integer, ForeignKey("cars.id"))
+    car_id = Column(Integer, ForeignKey("cars.id", ondelete="CASCADE"))
 
     car = relationship("Car", back_populates="images")
