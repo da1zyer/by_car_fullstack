@@ -1,6 +1,3 @@
-// frontend/src/Landing.jsx
-
-import React from 'react';
 import Header from './components/Header'; 
 import './styles/Landing.css'; 
 
@@ -8,7 +5,7 @@ import carImage from './assets/porsche.png';
 
 const LandingPage = () => {
     const isUserLoggedIn = false;
-    const currentUserName = "Даша"; 
+    const currentUserName = "Вован"; 
 
     return (
         <div className="landing-container">
@@ -16,7 +13,6 @@ const LandingPage = () => {
                 isLoggedIn={isUserLoggedIn} 
                 userName={currentUserName} 
             />
-
             <main className="main-content">
                 
                 <div className="text-section">
@@ -26,7 +22,7 @@ const LandingPage = () => {
                     </h1>
                     <button className="start-button">
                         start using
-                    </button>
+                    </button>   
                 </div>
 
                 <div className="image-section">
@@ -38,7 +34,6 @@ const LandingPage = () => {
                         <div className="rust-label">rust [99%]</div>
                     </div>
                 </div>
-
             </main>
         </div>
     );

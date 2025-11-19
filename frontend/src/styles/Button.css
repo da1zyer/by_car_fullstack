@@ -1,0 +1,36 @@
+.button {
+    display: inline-flex;
+    align-items: center;
+    height: 62px;
+    padding: 5px 20px;
+    background: #D0CAC0;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s;
+    font-family: 'Inter';
+    font-size: 28px;
+}
+
+.button:hover {
+    background: #C5BDAF;
+}
+
+.button:active {
+    transform: scale(0.98);
+}
+
+.button__with-icon {
+    display: inline-flex;
+    align-items: center;
+}
+
+.button__icon {
+    margin-right: 10px;
+    width: 30px;
+    height: 30px;
+}
+
+.button__icon--disabled {
+    display: none;
+}

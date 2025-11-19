@@ -1,0 +1,42 @@
+.car-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; 
+    margin: 0;
+    padding: 20px 100px;
+    box-sizing: border-box;
+    background: #F1EAE0;
+}
+
+.car__controls {
+    display: flex;
+    gap: 40px;
+    justify-content: space-between;
+    padding: 20px 0;
+}
+
+.controls__car-name {
+    height: 62px;
+    font-family: 'Inter';
+    font-size: 32px;
+    align-self: flex-start;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.controls__buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.images__grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(393px, 1fr));
+    justify-items: stretch;
+    align-items: stretch;
+    gap: 20px;
+    padding-top: 20px;
+}

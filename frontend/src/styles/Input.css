@@ -1,0 +1,18 @@
+.input {
+    min-width: 100px;
+    height: 62px;
+    padding-left: 20px;
+    border-radius: 20px;
+    background-color: #D0CAC0;
+    border: none;
+    font-family: 'Inter';
+    font-size: 28px;
+}
+
+.input:focus,
+.input:active,
+.input:hover {
+  border: none;
+  outline: none;
+  box-shadow: none;
+}

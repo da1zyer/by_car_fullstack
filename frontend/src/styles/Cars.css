@@ -1,0 +1,41 @@
+.cars {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; 
+    margin: 0;
+    padding: 20px 100px;
+    box-sizing: border-box;
+    border: 0;
+    background: #F1EAE0;
+}
+
+.cars__controls {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    padding: 20px 0;
+}
+
+.cars__input {
+    width: 1005px;
+}
+
+.cars__button1 {
+    margin-right: 10px;
+    overflow: hidden;
+}
+
+.cars__button2 {
+    overflow: hidden;
+}
+
+.cars__grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(393px, 1fr));
+    justify-items: stretch;
+    align-items: stretch;
+    gap: 20px;
+    padding-top: 20px;
+}

@@ -1,21 +1,18 @@
-// frontend/src/components/Header.jsx
-
-import React from 'react';
 import '../styles/Header.css';
+
+import logo from '../assets/logo.png';
 
 const Header = ({ isLoggedIn, userName }) => {
   return (
-    <header className="header-container">
-      <div className="logo">Logo</div>
+    <header className="header">
+      <img src={logo} className="header__logo" />
       <nav className="auth-nav">
         {isLoggedIn ? (
-          <div className="user-info">
-            Привет, <span className="user-name">{userName}</span>
-          </div>
+          <div className="user-name">{userName}</div>
         ) : (
           <>
             <a href="/login" className="nav-link">Log In</a>
-            <a href="/signup" className="nav-link primary-button">Sign Up</a>
+            <a href="/register" className="nav-link">Sign Up</a>
           </>
         )}
       </nav>

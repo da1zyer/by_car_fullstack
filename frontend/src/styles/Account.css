@@ -1,0 +1,23 @@
+.account-wrapper {
+  background-color: #F1EAE0;
+  min-height: 100vh;
+  width: 100%;
+  font-family: 'Inter';
+}
+
+.account-container {
+  max-width: 492px;
+  margin: 0 auto;
+  padding-top: 120px;
+  text-align: center;
+}
+
+.account-title {
+    font-family: 'Inter';
+    font-size: 32px;
+}
+
+.account-name {
+    font-family: 'Inter';
+    font-size: 32px;
+}
