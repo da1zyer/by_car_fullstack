@@ -6,7 +6,7 @@ from db.session import get_db
 from passlib.context import CryptContext
 from fastapi.security import OAuth2PasswordBearer
 from dotenv import load_dotenv
-import os
+import os   
 
 pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
 
@@ -14,7 +14,8 @@ load_dotenv(dotenv_path=".env")
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = os.getenv("ALGORITHM")
-ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES"))
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 60))
+REFRESH_TOKEN_EXPIRE_DAYS = int(os.getenv("REFRESH_TOKEN_EXPIRE_DAYS", 7))
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/token")
 
@@ -25,12 +26,17 @@ def get_password_hash(password: str) -> str:
     return pwd_context.hash(password)
 
 def create_access_token(subject: str, expires_delta: timedelta | None = None) -> str:
-    to_encode = {"sub": str(subject)}
+    to_encode = {"sub": str(subject), "type": "access"}
     if expires_delta:
         expire = datetime.now() + expires_delta
     else:
         expire = datetime.now() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     to_encode.update({"exp": expire})
+    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+
+def create_refresh_token(subject: str) -> str:
+    expire = datetime.now() + timedelta(days=REFRESH_TOKEN_EXPIRE_DAYS)
+    to_encode = {"sub": str(subject), "type": "refresh", "exp": expire}
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
 def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
@@ -43,7 +49,9 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         user_id: str = payload.get("sub")
-        if user_id is None:
+        token_type: str = payload.get("type")
+        
+        if user_id is None or token_type != "access":
             raise credentials_exception
     except JWTError:
         raise credentials_exception
@@ -52,3 +60,26 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
     if user is None:
         raise credentials_exception
     return user
+
+def verify_refresh_token(token: str, db: Session):
+    from db.repositories.user import UserRepository
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Invalid refresh token",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        user_id: str = payload.get("sub")
+        token_type: str = payload.get("type")
+
+        if user_id is None or token_type != "refresh":
+            raise credentials_exception
+            
+        user = UserRepository.get_by_id(db, int(user_id))
+        if user is None:
+            raise credentials_exception
+        
+        return user
+    except JWTError:
+        raise credentials_exception

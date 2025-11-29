@@ -11,19 +11,15 @@ def create_car(user: User, db: Session, link: str = None, title: str = None):
     Если передан link: из ссылки
     Если не передан link, но передан title: вручную
     """
-    images = None
     if link:
-        title, images = parse_link(link)
+        title, images_urls = parse_link(link)
     elif not title:
         raise Exception
 
     car = CarRepository.create_car(db=db, user=user, url=link, title=title)
 
-    if images:
-        response_images = []
-        for i in images:
-            image = ImageRepository.create_image(db=db, car=car, is_analyzed=False, url=i.get_attribute('src'))
-            response_images.append('localhost:8000/images/{}.png'.format(image.id))
+    if link:
+        images = [ImageRepository.create_image(user=user, db=db, car=car, is_analyzed=False, url=url) for url in images_urls]
         save_images(db, car)
     
     return car

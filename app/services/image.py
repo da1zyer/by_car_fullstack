@@ -6,7 +6,7 @@ import db.repositories as repositories
 def get_images(car_id, user, db):
     car = repositories.CarRepository.get_by_id(db, user, car_id)
     images = repositories.ImageRepository.get_all(db=db, car=car)
-    response_images = [{'id': image.id, 'url': 'localhost:8000/images/{}.png'.format(image.id)} for image in images]
+    response_images = [{'id': image.id, 'url': 'http://localhost:8000/images/{}.png'.format(image.id)} for image in images]
     return response_images
 
 def save_images(db, car):
