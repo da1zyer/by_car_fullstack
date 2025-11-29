@@ -31,6 +31,14 @@
     height: 30px;
 }
 
+.button--icon-only {
+    margin-right: 0px;
+}
+
+.spinner--icon-only {
+    margin-right: 0px;
+}
+
 .button__icon--disabled {
     display: none;
 }

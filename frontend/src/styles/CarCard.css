@@ -1,4 +1,5 @@
 .car-card {
+    min-width: 393px;
     max-height: 329px;
     background: #E4DDD5;
     border-radius: 20px;

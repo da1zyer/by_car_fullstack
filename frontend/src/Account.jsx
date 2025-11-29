@@ -7,16 +7,8 @@ import './styles/Account.css';
 import './styles/Header.css'; 
 
 const AccountPage = () => {
-    const isUserLoggedIn = false;
-    const currentUserName = "Вован"; 
   return (
     <div className="account-wrapper">
-
-        <Header 
-            isLoggedIn={isUserLoggedIn} 
-            userName={currentUserName} 
-        />
-
       <div className="account-container">
         <h2 className="account-title">My Account</h2>
 

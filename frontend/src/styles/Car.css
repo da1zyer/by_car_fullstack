@@ -31,10 +31,18 @@
     gap: 20px;
 }
 
+.controls__button3 {
+    background-color: rgb(176, 19, 19);
+}
+
+.controls__button3:hover {
+    background-color: rgb(226, 12, 12);
+}
+
 .images__grid {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(393px, 1fr));
+    grid-template-columns: repeat(4, minmax(393px, 1fr));
     justify-items: stretch;
     align-items: stretch;
     gap: 20px;

@@ -18,22 +18,27 @@
 }
 
 .cars__input {
-    width: 1005px;
+    width: 100%;
+    max-width: 1005px;
 }
 
 .cars__button1 {
+    width: 100%;
+    max-width: 285px;
     margin-right: 10px;
     overflow: hidden;
 }
 
 .cars__button2 {
+    width: 100%;
+    max-width: 360px;
     overflow: hidden;
 }
 
 .cars__grid {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(393px, 1fr));
+    grid-template-columns: repeat(4, minmax(393px, 1fr));
     justify-items: stretch;
     align-items: stretch;
     gap: 20px;

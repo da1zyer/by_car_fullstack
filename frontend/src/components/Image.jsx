@@ -1,7 +1,7 @@
-const ImageCard = ({ car, i }) => {
+const ImageCard = ({ image, i }) => {
   return (
     <div key={i} className="image-card">
-        <img src={car.img} alt={car.name} />
+      <img src={image.url} alt={1} />
     </div>
   );
 };
